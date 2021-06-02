@@ -3,5 +3,6 @@ export type turma = {
     data_inicio: Date,
     data_final: Date,
     modulo: string,
+    
  }
  
