@@ -66,3 +66,11 @@ export async function addSpecialtiesToTeacher(
   )
   await connection('LabenuSystemTeacher_Specialty').insert(teacherSpecialty)
 }
+
+export async function deleteStudent(teacherId: string) {
+  const rows = await connection('LabenuSystemTeacher')
+    .delete()
+    .where('id', teacherId)
+
+  return rows
+}

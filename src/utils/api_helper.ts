@@ -58,3 +58,31 @@ export async function classExist(id: string): Promise<any> {
   }
   return true
 }
+
+export async function hobbyExist(hobby: string): Promise<any> {
+  const result = await connection('LabenuSystemHobby').where('nome', hobby)
+  if (!result.length) {
+    return null
+  }
+  return result[0]
+}
+
+export async function isStudentInClass(studentId: string, classId: string) {
+  const result = await connection('LabenuSystemStudent')
+    .where('id', studentId)
+    .andWhere('turma_id', classId)
+  if (!result.length) {
+    return false
+  }
+  return true
+}
+
+export async function isTeacherInClass(teacherId: string, classId: string) {
+  const result = await connection('LabenuSystemTeacher')
+    .where('id', teacherId)
+    .andWhere('turma_id', classId)
+  if (!result.length) {
+    return false
+  }
+  return true
+}
