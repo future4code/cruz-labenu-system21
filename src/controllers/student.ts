@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { connection } from '../connection'
 import { Student, StudentBodyReq } from '../types/estudante'
-import { validDate } from '../utils/api_helper'
+import { calculateAge, validDate, validEmail } from '../utils/api_helper'
 
 export function validateStudent({
   nome,
@@ -10,7 +10,7 @@ export function validateStudent({
 }: StudentBodyReq): Student {
   if (!nome) {
     throw new Error('Por favor coloque um nome válido')
-  } else if (!email || !email.includes('@')) {
+  } else if (!validEmail(email)) {
     throw new Error('Por favor coloque um email válido')
   } else if (!validDate(data_nasc)) {
     throw new Error(
@@ -64,4 +64,14 @@ export async function createStudent(
 
       await connection('LabenuSystemStudent_Hobby').insert(studentHobbyRelation)
     })
+}
+
+export async function getStudentAge(id: string): Promise<any> {
+  const result = await connection('LabenuSystemStudent')
+    .where('id', id)
+    .select('data_nasc')
+
+  const age = calculateAge(result[0].data_nasc)
+
+  return age
 }
