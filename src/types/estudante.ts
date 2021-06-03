@@ -8,7 +8,6 @@ export type Student = {
 export type StudentBodyReq = {
   nome: string
   email: string
-  dataNasc: string
+  data_nasc: string
   hobbies: Array<string>
-  turmaId: string
 }

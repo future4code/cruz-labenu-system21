@@ -1,8 +1,14 @@
-export type turma = {
-    nome: string,
-    data_inicio: Date,
-    data_final: Date,
-    modulo: string,
-    
- }
- 
+export type Class = {
+  id: string
+  nome: string
+  data_inicio: string
+  data_final: string
+  modulo: number
+}
+
+export type ClassBodyReq = {
+  nome: string
+  data_inicio: string
+  data_final: string
+  modulo: number
+}
