@@ -42,3 +42,19 @@ export async function studentExist(id: string): Promise<any> {
   }
   return true
 }
+
+export async function teacherExist(id: string): Promise<any> {
+  const result = await connection('LabenuSystemTeacher').where('id', id)
+  if (!result.length) {
+    return false
+  }
+  return true
+}
+
+export async function classExist(id: string): Promise<any> {
+  const result = await connection('LabenuSystemClass').where('id', id)
+  if (!result.length) {
+    return false
+  }
+  return true
+}
