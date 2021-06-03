@@ -35,3 +35,15 @@ export function validateClass({
 export async function createClass(newClass: Class) {
   await connection('LabenuSystemClass').insert(newClass)
 }
+
+export async function removeStudentFromClass(
+  classId: string,
+  studentId: string
+): Promise<any> {
+  await connection('LabenuSystemStudent')
+    .update({
+      turma_id: null,
+    })
+    .where('id', studentId)
+    .andWhere('turma_id', classId)
+}

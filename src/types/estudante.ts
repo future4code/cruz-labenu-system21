@@ -11,3 +11,8 @@ export type StudentBodyReq = {
   data_nasc: string
   hobbies: Array<string>
 }
+
+export type Hobby = {
+  id: string
+  nome: string
+}

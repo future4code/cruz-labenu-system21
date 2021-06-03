@@ -1,12 +1,14 @@
 import { Request, Response, Router } from 'express'
 import {
   createStudent,
+  deleteStudent,
   getStudentAge,
+  getStudentsByHobby,
   validateHobbies,
   validateStudent,
 } from '../controllers/student'
 import { Student } from '../types/estudante'
-import { studentExist } from '../utils/api_helper'
+import { hobbyExist, studentExist } from '../utils/api_helper'
 
 const route = Router()
 
@@ -38,6 +40,44 @@ route.get('/age/:id', async (req: Request, res: Response) => {
 
     const result = await getStudentAge(id)
     res.status(200).send({ idade: result })
+  } catch (error) {
+    res.send({ message: error.sqlMessage || error.message })
+  }
+})
+
+route.get('/search', async (req: Request, res: Response) => {
+  try {
+    const hobby: string | undefined = req.query.hobby as string | undefined
+
+    if (!hobby) {
+      throw new Error('Por favor coloque um nome de hobby válido')
+    }
+
+    const hobbyExiste = await hobbyExist(hobby)
+
+    if (!hobbyExiste) {
+      throw new Error('Não existe nenhum hobby com esse nome')
+    }
+
+    const result = await getStudentsByHobby(hobbyExiste)
+
+    res.status(200).send(result)
+  } catch (error) {
+    res.status(400).send({ message: error.sqlMessage || error.message })
+  }
+})
+
+route.delete('/:studentId', async (req: Request, res: Response) => {
+  try {
+    const studentId: string = req.params.studentId
+    res.statusCode = 400
+
+    if (!(await deleteStudent(studentId))) {
+      res.statusCode = 404
+      throw new Error('Não foi achado nenhum estudante com esse id')
+    }
+
+    res.status(204).send({ message: 'Estudante deletado com sucesso!' })
   } catch (error) {
     res.send({ message: error.sqlMessage || error.message })
   }

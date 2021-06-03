@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { connection } from '../connection'
-import { Student, StudentBodyReq } from '../types/estudante'
+import { Hobby, Student, StudentBodyReq } from '../types/estudante'
 import { calculateAge, validDate, validEmail } from '../utils/api_helper'
 
 export function validateStudent({
@@ -74,4 +74,26 @@ export async function getStudentAge(id: string): Promise<any> {
   const age = calculateAge(result[0].data_nasc)
 
   return age
+}
+
+export async function getStudentsByHobby(hobby: Hobby) {
+  const result = await connection('LabenuSystemStudent as student')
+    .join(
+      'LabenuSystemStudent_Hobby as student_hobby',
+      'student_hobby.student_id',
+      '=',
+      'student.id'
+    )
+    .where('student_hobby.hobby_id', hobby.id)
+    .select('id', 'nome', 'email', 'data_nasc', 'turma_id', 'hobby_id')
+
+  return result
+}
+
+export async function deleteStudent(studentId: string) {
+  const rows = await connection('LabenuSystemStudent')
+    .delete()
+    .where('id', studentId)
+
+  return rows
 }

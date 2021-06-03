@@ -58,3 +58,11 @@ export async function classExist(id: string): Promise<any> {
   }
   return true
 }
+
+export async function hobbyExist(hobby: string): Promise<any> {
+  const result = await connection('LabenuSystemHobby').where('nome', hobby)
+  if (!result.length) {
+    return null
+  }
+  return result[0]
+}
