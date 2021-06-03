@@ -2,7 +2,6 @@ import { Request, Response, Router } from 'express'
 import {
   addSpecialtiesToTeacher,
   createTeacher,
-  deleteStudent,
   validateSpecialties,
   validateTeacher,
 } from '../controllers/teacher'
@@ -22,22 +21,6 @@ route.post('/', async (req: Request, res: Response) => {
     res.status(400).send({
       message: err.message,
     })
-  }
-})
-
-route.delete('/:teacherId', async (req: Request, res: Response) => {
-  try {
-    const teacherId: string = req.params.teacherId
-    res.statusCode = 400
-
-    if (!(await deleteStudent(teacherId))) {
-      res.statusCode = 404
-      throw new Error('Não foi achado nenhum professor com esse id')
-    }
-
-    res.status(204).send({ message: 'Professor deletado com sucesso!' })
-  } catch (error) {
-    res.send({ message: error.sqlMessage || error.message })
   }
 })
 

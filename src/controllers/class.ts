@@ -47,3 +47,24 @@ export async function removeStudentFromClass(
     .where('id', studentId)
     .andWhere('turma_id', classId)
 }
+
+export async function removeTeacherFromClass(
+  classId: string,
+  teacherId: string
+): Promise<any> {
+  await connection('LabenuSystemTeacher')
+    .update({
+      turma_id: null,
+    })
+    .where('id', teacherId)
+    .andWhere('turma_id', classId)
+}
+
+export async function changeClassModule(
+  module: number,
+  classId: string
+): Promise<any> {
+  await connection('LabenuSystemClass').where('id', classId).update({
+    modulo: module,
+  })
+}

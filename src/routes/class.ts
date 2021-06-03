@@ -1,12 +1,21 @@
 import { Request, Response, Router } from 'express'
 import { connection } from '../connection'
 import {
+  changeClassModule,
   createClass,
   removeStudentFromClass,
+  removeTeacherFromClass,
   validateClass,
 } from '../controllers/class'
 import { Class } from '../types/turma'
-import { classExist, studentExist, teacherExist } from '../utils/api_helper'
+import {
+  classExist,
+  isStudentInClass,
+  isTeacherInClass,
+  studentExist,
+  teacherExist,
+  validModule,
+} from '../utils/api_helper'
 
 const route = Router()
 
@@ -127,12 +136,15 @@ route.delete(
         throw new Error(
           'Por favor coloque os ids do estudante e da turma corretamente'
         )
-      } else if (classExist(classId)) {
+      } else if (!(await classExist(classId))) {
         res.statusCode = 404
         throw new Error('Não existe nenhuma turma com o id passado')
-      } else if (studentExist(studentId)) {
+      } else if (!(await studentExist(studentId))) {
         res.statusCode = 404
         throw new Error('Não existe nenhum estudante com o id passado')
+      } else if (!(await isStudentInClass(studentId, classId))) {
+        res.statusCode = 404
+        throw new Error('Esse estudante não está nessa turma')
       }
 
       await removeStudentFromClass(classId, studentId)
@@ -145,5 +157,60 @@ route.delete(
     }
   }
 )
+
+route.delete(
+  '/:classId/teachers/:teacherId',
+  async (req: Request, res: Response) => {
+    try {
+      const classId: string = req.params.classId
+      const teacherId: string = req.params.teacherId
+
+      res.statusCode = 400
+
+      if (!classId || !teacherId) {
+        throw new Error(
+          'Por favor coloque os ids do professor e da turma corretamente'
+        )
+      } else if (!(await classExist(classId))) {
+        res.statusCode = 404
+        throw new Error('Não existe nenhuma turma com o id passado')
+      } else if (!(await teacherExist(teacherId))) {
+        res.statusCode = 404
+        throw new Error('Não existe nenhum professor com o id passado')
+      } else if (!(await isTeacherInClass(teacherId, classId))) {
+        res.statusCode = 404
+        throw new Error('Esse professor não está nessa turma')
+      }
+
+      await removeTeacherFromClass(classId, teacherId)
+
+      res
+        .status(204)
+        .send({ message: 'Professor removido da turma com sucesso'! })
+    } catch (error) {
+      res.send({ message: error.sqlMessage || error.message })
+    }
+  }
+)
+
+route.put('/:classId/module', async (req: Request, res: Response) => {
+  try {
+    const module = req.body.modulo
+    const classId = req.params.classId
+    if (!validModule(module)) {
+      throw new Error(
+        'Por favor coloque um valor válido no módulo value >= 0 && value <= 7'
+      )
+    } else if (!(await classExist(classId))) {
+      throw new Error('Por favor coloque uma turma com id válido')
+    }
+
+    await changeClassModule(module, classId)
+
+    res.status(200).send({ message: `Module changed to ${module}` })
+  } catch (error) {
+    res.send({ message: error.sqlMessage || error.message })
+  }
+})
 
 export default route
