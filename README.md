@@ -36,3 +36,18 @@ $ yarn start
 ## 🔨 Como usar
 
 [Documentação do Postman](https://documenter.getpostman.com/view/15067223/TzY4eZzx#ab0c3c43-2c59-46ba-952b-c02ef81589e3)
+
+## 🚀 Autores
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/KiwiDev808">
+    <img src="https://avatars.githubusercontent.com/u/60843500?v=4" width="100px" alt="Imagem do perfil do Lucas"/>
+    <br />
+    <sub><b>Lucas Bacelar</b></sub><br />🚀
+</td>
+    <td align="center"><a href="https://github.com/WilliamGofe">
+    <img src="https://avatars.githubusercontent.com/u/76756233?v=4" width="100px" alt="Imagem do perfil do William"/>
+    <br />
+    <sub><b>William Gomes</b></sub><br />🚀</td>
+ 
