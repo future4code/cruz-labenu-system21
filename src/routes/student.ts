@@ -3,6 +3,7 @@ import {
   createStudent,
   deleteStudent,
   getStudentAge,
+  getStudents,
   getStudentsByHobby,
   validateHobbies,
   validateStudent,
@@ -26,6 +27,11 @@ route.post('/', async (req: Request, res: Response) => {
   } catch (error) {
     res.send({ message: error.sqlMessage || error.message })
   }
+})
+
+route.get('/', async (req: Request, res: Response) => {
+  const result = await getStudents()
+  res.status(200).send(result)
 })
 
 route.get('/age/:id', async (req: Request, res: Response) => {

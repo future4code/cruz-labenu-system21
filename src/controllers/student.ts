@@ -97,3 +97,7 @@ export async function deleteStudent(studentId: string) {
 
   return rows
 }
+
+export async function getStudents(): Promise<any> {
+  return await connection('LabenuSystemStudent')
+}

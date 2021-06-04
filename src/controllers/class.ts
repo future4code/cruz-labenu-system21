@@ -68,3 +68,7 @@ export async function changeClassModule(
     modulo: module,
   })
 }
+
+export async function getClasses(): Promise<any> {
+  return await connection('LabenuSystemClass')
+}

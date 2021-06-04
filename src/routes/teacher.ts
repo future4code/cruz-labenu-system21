@@ -2,11 +2,17 @@ import { Request, Response, Router } from 'express'
 import {
   addSpecialtiesToTeacher,
   createTeacher,
+  getTeachers,
   validateSpecialties,
   validateTeacher,
 } from '../controllers/teacher'
 
 const route = Router()
+
+route.get('/', async (req: Request, res: Response) => {
+  const result = await getTeachers()
+  res.status(200).send(result)
+})
 
 route.post('/', async (req: Request, res: Response) => {
   try {
