@@ -28,7 +28,7 @@ export function validateTeacher({
 export async function validateSpecialties(
   specialties: Array<string>
 ): Promise<Array<Specialty>> {
-  const dbSpecialties = await await connection('LabenuSystemSpecialty')
+  const dbSpecialties = await connection('LabenuSystemSpecialty')
 
   const dbNames = dbSpecialties.map((item) => item.nome)
 
@@ -73,4 +73,8 @@ export async function deleteStudent(teacherId: string) {
     .where('id', teacherId)
 
   return rows
+}
+
+export async function getTeachers(): Promise<any> {
+  return await connection('LabenuSystemTeacher')
 }

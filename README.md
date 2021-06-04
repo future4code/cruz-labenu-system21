@@ -1,33 +1,53 @@
-## LabenuSystem:
+# Labenu System (backend)
 
-Você estuda na Labenu_ há tanto tempo que já parecem anos, não é? Então, hoje, vamos pedir para criar um sistema que represente o básico da nossa organização. 
+## 📌 Sobre a aplicação
 
-Ele deve possuir, ao menos, as 3 entidades importantes:
+O **Labenu System** é um projeto que busca representar como funciona o registro de alunos, professores e turmas no sistema da Labenu, e também suas funcionalidades como, adicionar alunos ás turmas e filtrar alunos por determinados parâmetros.
 
-1. Estudantes 
+## ⚙ Tecnologias
 
-    Representa estudantes da nossa instituição. Eles devem possuir: id, nome, email, data de nascimento e os principais hobbies dele. 
+- Node.js
+- day.js
+- Express
+- Typescript
+- Knex.js
+- MySQL
+ 
+## 🛠 Instalação
 
-2. Docente
+```bash
+# Clone esse repositório
+$ git clone https://github.com/future4code/cruz-labenu-system21
 
-    Representa docentes da nossa instituição. Eles devem possuir: id, nome, email, data de nascimento e todas as especialidades dele. Há 7 especialidades: React, Redux, CSS, Testes, Typescript, Programação Orientada a Objetos e Backend
+# Acesse a pasta no projeto
+$ cd labebank
+$ npm install
+# or
+$ npm install -g yarn
 
-3. Turma
+# Execute a aplicação
+$ npm start
+# or
+$ yarn start
+# A porta do servidor irá abrir no console: https://localhost:3003
+```
 
-    Toda turma é composta das seguintes características: id, nome, data de início, data de término, lista de professores responsáveis, uma lista de alunos e módulo atual em que a turma está.
 
-    O módulo pode assumir os valores de 1 a 7 ou `undefined`, indicando que as aulas dessa turma ainda não começaram. Para esse exercício, vamos considerar que existam dois tipos de turma: integral ou noturna. Há uma restrição para o nome das turmas noturnas: tem que terminar com `-na-night`.
+## 🔨 Como usar
 
-As funcionalidades básicas são:
+[Documentação do Postman](https://documenter.getpostman.com/view/15067223/TzY4eZzx#ab0c3c43-2c59-46ba-952b-c02ef81589e3)
 
-→ Criar estudante;
+## 🚀 Autores
 
-→ Criar docente;
-
-→ Criar turma;
-
-→ Adicionar estudante na turma;
-
-→ Adicionar docente na turma;
-
-→ Pegar a idade de algum estudante a partir do id
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/KiwiDev808">
+    <img src="https://avatars.githubusercontent.com/u/60843500?v=4" width="100px" alt="Imagem do perfil do Lucas"/>
+    <br />
+    <sub><b>Lucas Bacelar</b></sub><br />🚀
+</td>
+    <td align="center"><a href="https://github.com/WilliamGofe">
+    <img src="https://avatars.githubusercontent.com/u/76756233?v=4" width="100px" alt="Imagem do perfil do William"/>
+    <br />
+    <sub><b>William Gomes</b></sub><br />🚀</td>
+ 

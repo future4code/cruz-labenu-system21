@@ -3,6 +3,7 @@ import { connection } from '../connection'
 import {
   changeClassModule,
   createClass,
+  getClasses,
   removeStudentFromClass,
   removeTeacherFromClass,
   validateClass,
@@ -79,6 +80,11 @@ route.put('/:classId/teachers', async (req: Request, res: Response) => {
   } catch (error) {
     res.send({ message: error.sqlMessage || error.message })
   }
+})
+
+route.get('/', async (req: Request, res: Response) => {
+  const result = await getClasses()
+  res.status(200).send(result)
 })
 
 route.get('/:classId/students', async (req: Request, res: Response) => {
