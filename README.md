@@ -50,4 +50,8 @@ $ yarn start
     <img src="https://avatars.githubusercontent.com/u/76756233?v=4" width="100px" alt="Imagem do perfil do William"/>
     <br />
     <sub><b>William Gomes</b></sub><br />🚀</td>
+<td align="center"><a href="https://github.com/Allan-SS">
+    <img src="https://avatars.githubusercontent.com/u/76536172?v=4" width="100px" alt="Imagem do perfil do Allan"/>
+    <br />
+    <sub><b>Allan-SS</b></sub><br />🚀</td>
  
